@@ -1,12 +1,17 @@
 import axios from "axios"
+import axiosWithAuth from "./../axiosWithAuth";
 
 const baseURL = 'https://cloud-schoolz.herokuapp.com/api';
 
+// Handles GET Requests
+// Resource can be: admin, students, volunteers, tasks
 export const fetchResource = async (resource) => {
   try {
-    const admins = await axios.get(`${baseURL}/${resource}`);
-    console.log(admins);
-    return admins;
+    const response = (resource === "tasks")
+      ? await axiosWithAuth.get(`${baseURL}/${resource}`)
+      : await axios.get(`${baseURL}/${resource}`);
+    console.log(response);
+    return response;
   } catch (err) {
     console.log(`Error: ${err.response.data.message}`);
     return err;
@@ -15,29 +20,14 @@ export const fetchResource = async (resource) => {
 
 export const postResource = async (resource, credentials) => {
   try {
-    const registered = await axios.post(`${baseURL}/${resource}/register`, credentials);
-    console.log(registered);
-    return registered;
+    const response = await axios.post(`${baseURL}/${resource}/register`, credentials);
+    console.log(response);
+    return response;
   } catch (err) {
     console.log(`Error: ${err.response.data.message}`);
     throw err;
   }
 };
 
-// export const getAdmins = () => {
-//   axios.get(`${baseURL}/admin`)
-//     .then(res => {
-//       console.log(res);
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     })
-// }
-
-// export const loginAdmin = async credentials => {
-//   try {
-//     return await axios.post(`${baseURL}/admin/register`, credentials);
-//   } catch (err) {
-//     throw err;
-//   }
-// };
+// If tasks, then we need axiosWithAuth for Post and Put
+// If logging in, we need axiosWithAuth to pass the token
