@@ -2,23 +2,25 @@ import axios from "axios"
 
 const baseURL = 'https://cloud-schoolz.herokuapp.com/api';
 
-export const fetchAdmins = async () => {
+export const fetchResource = async (resource) => {
   try {
-    const admins = await axios.get(`${baseURL}/admin`);
+    const admins = await axios.get(`${baseURL}/${resource}`);
     console.log(admins);
     return admins;
   } catch (err) {
     console.log(`Error: ${err.response.data.message}`);
+    return err;
   }
 };
 
-export const postAdmin = async credentials => {
+export const postResource = async (resource, credentials) => {
   try {
-    const registered = await axios.post(`${baseURL}/admin/register`, credentials);
+    const registered = await axios.post(`${baseURL}/${resource}/register`, credentials);
     console.log(registered);
     return registered;
   } catch (err) {
     console.log(`Error: ${err.response.data.message}`);
+    throw err;
   }
 };
 

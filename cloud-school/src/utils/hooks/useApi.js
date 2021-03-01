@@ -14,6 +14,13 @@
 //             password: "crypto"
 //           });
 //         });
+//   - and you would use the same hook for logging in but with different variable names, for example,
+//         const [logInAdminResponse, logInAdmin] = useApi(() => {
+//           postAdmin({
+//             email: "ck@superhuman.com",
+//             password: "crypto"
+//           });
+//         });
 
 
 import { useState } from 'react';
@@ -29,7 +36,8 @@ export const useApi = apiFunction => {
   const fetchMethod = async () => {
     setResponse({
       ...response,
-      isFetching: true
+      isFetching: true,
+      isSuccess: false
     });
     try {
       const apiData = await apiFunction();
@@ -43,7 +51,7 @@ export const useApi = apiFunction => {
       setResponse({
         data: null,
         isFetching: false,
-        error: err,
+        error: err.response.data.message,
         isSuccess: false
       });
     }
