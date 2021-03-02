@@ -8,7 +8,7 @@ const baseURL = 'https://cloud-schoolz.herokuapp.com/api';
 export const fetchResource = async (resource) => {
   try {
     const response = (resource === "tasks")
-      ? await axiosWithAuth.get(`${baseURL}/${resource}`)
+      ? await axiosWithAuth().get(`${baseURL}/${resource}`)
       : await axios.get(`${baseURL}/${resource}`);
     console.log(response);
     return response;
@@ -18,9 +18,12 @@ export const fetchResource = async (resource) => {
   }
 };
 
-export const postResource = async (resource, credentials) => {
+// Handles POST Requests for register and login
+// Resource can be: admin, students, volunteers
+// Action can be: register, login
+export const postResource = async (resource, action, credentials) => {
   try {
-    const response = await axios.post(`${baseURL}/${resource}/register`, credentials);
+    const response = await axios.post(`${baseURL}/${resource}/${action}`, credentials);
     console.log(response);
     return response;
   } catch (err) {
