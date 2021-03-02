@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react'
 // import { Route, Switch } from "react-router-dom";
 import "./Home.css";
 import arrow from "../assets/arrow.svg";
-
+import { useApi } from '../utils/hooks/useApi';
+import { postResource } from '../utils/api';
 
 
 function Home() {
     const [account, setAccount] = useState('');
     const [parameter, setParameter] = useState('');
     const [formValues, setFormValues] = useState({});
+    const [signLog, executeSignLog] = useApi(() => postResource(account, parameter, formValues));
 
     useEffect(() => {
         let accountType = document.getElementById('accountType');
@@ -45,7 +47,7 @@ function Home() {
         let logInModal = document.getElementById('modalContainerLogin');
         let volunteerSignUp = document.getElementById('modalContainerVolunteer');
         // Logic handling what modal pops up
-        if(account === "volunteer" && ev.target.innerHTML === "Sign Up") {
+        if(account === "volunteers" && ev.target.innerHTML === "Sign Up") {
             volunteerSignUp.style.display = "block";
             let newParameter = ev.target.id;
             setParameter(newParameter);
@@ -69,7 +71,7 @@ function Home() {
     }
 
     const handleFormChange = (e) => {
-        const valueToAdd = e.target.name === "country" ? parseInt(e.target.value) : e.target.value;
+        const valueToAdd = e.target.name === "country_id" ? parseInt(e.target.value) : e.target.value;
         setFormValues({
             ...formValues,
             [e.target.name]: valueToAdd
@@ -85,10 +87,12 @@ function Home() {
     const handleFormSubmit = (e) => {
         e.preventDefault();
         console.log(formValues);
+        executeSignLog();
         setFormValues({});
         closeModal();
     }
 
+    console.log(signLog);
     console.log(account);
     console.log(formValues);
 
@@ -115,8 +119,8 @@ function Home() {
                                     <label for="accountType">Choose Your Account:</label>
                                     <select onChange={handleRoleChange} id="accountType" name="accountType">
                                         <option value="admin">Admin</option>
-                                        <option value="volunteer">Volunteer</option>
-                                        <option value="student">Student</option>
+                                        <option value="volunteers">Volunteer</option>
+                                        <option value="students">Student</option>
                                     </select>
                                     <button id="register" type="submit" onClick={openModal}>Sign Up</button>
                                     <button id="login" type="submit" onClick={openModal}>Log In</button>
@@ -243,8 +247,8 @@ function Home() {
                                 <option value="Weekdays">Weekdays</option>
                                 <option value="Weekends">Weekends</option>
                             </select>
-                            <label for="country">Choose Your Country:</label>
-                            <select onChange={handleFormChange} id="country" name="country" size="5">
+                            <label for="country_id">Choose Your Country:</label>
+                            <select onChange={handleFormChange} id="country" name="country_id" size="5">
                                 <option value="1">Afghanistan</option>
                                 <option value="2">Aland Islands</option>
                                 <option value="3">Albania</option>

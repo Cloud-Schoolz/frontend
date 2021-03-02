@@ -13,6 +13,10 @@ import envelope from "./assets/envelope-open-text-solid.svg";
 
 
 function App() {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+  };
+
   return (
     <div className="App">
 
@@ -21,7 +25,7 @@ function App() {
         <div className="navLinksContainer">
           <Link to="#" className="navLinks">Login</Link>
           <Link to="#" className="navLinks">SignUp</Link>
-          <Link to="#" className="navLinks">Logout</Link>
+          <Link to="/" className="navLinks" onClick={handleLogout}>Logout</Link>
         </div>
       </nav>
       <Switch>
