@@ -3,21 +3,12 @@ import {useParams} from 'react-router-dom';
 import axiosWithAuth from './../../utils/axiosWithAuth';
 import VolunteerTaskPage from './volunteerTaskPage';
 
-const initialTask = [
-    {
-        name:'teach kids',
-        id:1
-    },
-    {
-        name:'teach more kids',
-        id:2
-    }
-
-    
-]
-
 const VolunteerLandingPage = () =>{
-    const [tasks, setTask] = useState('')
+
+    const [tasks, setTasks] = useState([])
+    const [name, setName] = useState('')
+    const {id} = useParams();
+    console.log(id)
 
     useEffect(()=>{
         getTask()
@@ -25,19 +16,27 @@ const VolunteerLandingPage = () =>{
 
     const getTask = ()=>{
         axiosWithAuth()
-            .get(`/tasks`)
+            .get(`/volunteers/tasks/25`)
             .then(res=>{
                 console.log(res)
+                setTasks(
+                    res.data
+                )
+                // setName(
+                //     res.data[0].volunteer_name
+                // )
             })
     }
+    console.log(name)
+
 
 
     return(
         <div className='volunteer-main'>
-            <h2>Welcome Volunteers!</h2>
+            <h2>Welcome {name} hello !</h2>
             <p>Thanks for giving us your time. Here you will see your upcoming task</p>
             <h4>TASK</h4>
-            {initialTask.map(task=>(
+            {tasks.map(task=>(
                 <VolunteerTaskPage task={task} key={task.id} />
             ))}
         </div>
