@@ -25,7 +25,7 @@ export const postResource = async (resource, action, credentials) => {
     const response = await axios.post(`${baseURL}/${resource}/${action}`, credentials);
     return response.data;
   } catch (err) {
-    console.log(`Error: ${err.response.data.message}`);
+    console.log(`${err}`);
     throw err;
   }
 };
@@ -42,11 +42,6 @@ export const fetchTasks = async (id) => {
 }
 
 // Handles POST Requests for tasks (only admins have access)
-// Example of a task object to post:
-//     const taskToPost = {
-//       task_name: "Fusion Power",
-//       description: "Build nuclear fusion power plants",
-//     };
 export const postTask = async (task) => {
   try {
     const response = await axiosWithAuth().post(`${baseURL}/tasks`, task);
@@ -58,11 +53,6 @@ export const postTask = async (task) => {
 }
 
 // Handles PUT Requests for tasks (only admins have access)
-// Example of a task object to post:
-//     const taskToUpdate = {
-//       task_name: "Lower Yeti Cost",
-//       description: "Reduce materials cost by 50%",
-//     };
 export const putTask = async (task, id) => {
   try {
     const response = await axiosWithAuth().put(`${baseURL}/tasks/${id}`, task);
