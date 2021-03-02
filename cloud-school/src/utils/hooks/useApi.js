@@ -16,7 +16,7 @@
 //         });
 //   - and you would use the same hook for logging in but with different variable names, for example,
 //         const [logInAdminResponse, logInAdmin] = useApi(async () => {
-//           await postAdmin("admin", {
+//           await postAdmin("admin", "register", {
 //             email: "ck@superhuman.com",
 //             password: "crypto"
 //           });
@@ -37,6 +37,7 @@ export const useApi = apiFunction => {
     setResponse({
       ...response,
       isFetching: true,
+      error: null,
       isSuccess: false
     });
     try {
@@ -51,7 +52,7 @@ export const useApi = apiFunction => {
       setResponse({
         data: null,
         isFetching: false,
-        error: err.response.data.message,
+        error: err.message,
         isSuccess: false
       });
     }
