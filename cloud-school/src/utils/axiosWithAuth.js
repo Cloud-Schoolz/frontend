@@ -7,8 +7,7 @@ const axiosWithAuth = () => {
     return axios.create({
       headers: {
         Authorization: token,
-      },
-      baseURL:'https://cloud-schoolz.herokuapp.com/api'
+      }
     });
 
   };
