@@ -23,9 +23,9 @@ function App() {
       <nav className="navbar">
         <img src={logo} alt="School in the Clouds Logo" className="logo"/>
         <div className="navLinksContainer">
-          <Link to="#" className="navLinks">Login</Link>
-          <Link to="#" className="navLinks">SignUp</Link>
-          <Link to="/" className="navLinks" onClick={handleLogout}>Logout</Link>
+          <a href="#mainRegion" className="navLinks">Login</a>
+          <a href="#mainRegion" className="navLinks">SignUp</a>
+          <Link href="/" className="navLinks" onClick={handleLogout}>Logout</Link>
         </div>
       </nav>
       <Switch>
