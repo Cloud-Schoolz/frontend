@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 import axiosWithAuth from "./../axiosWithAuth";
 
 const baseURL = 'https://cloud-schoolz.herokuapp.com/api';
@@ -10,7 +10,7 @@ export const fetchResource = async (resource) => {
     const response = (resource === "tasks")
       ? await axiosWithAuth().get(`${baseURL}/${resource}`)
       : await axios.get(`${baseURL}/${resource}`);
-    return response.data;
+    return await response.data;
   } catch (err) {
     console.log(`Error: ${err.response.data.message}`);
     throw err;
@@ -34,7 +34,7 @@ export const postResource = async (resource, action, credentials) => {
 export const fetchTasks = async (id) => {
   try {
     const response = await axiosWithAuth().get(`${baseURL}/volunteers/tasks/${id}`);
-    return response.data;
+    return await response.data;
   } catch (err) {
     console.log(`Error: ${err.response.data.message}`);
     throw err;
@@ -50,7 +50,7 @@ export const fetchTasks = async (id) => {
 export const postTask = async (task) => {
   try {
     const response = await axiosWithAuth().post(`${baseURL}/tasks`, task);
-    return response.data;
+    return await response.data;
   } catch (err) {
     console.log(`Error: ${err.response.data.message}`);
     throw err;
@@ -66,7 +66,7 @@ export const postTask = async (task) => {
 export const putTask = async (task, id) => {
   try {
     const response = await axiosWithAuth().put(`${baseURL}/tasks/${id}`, task);
-    return response.data;
+    return await response.data;
   } catch (err) {
     console.log(`Error: ${err.response.data.message}`);
     throw err;

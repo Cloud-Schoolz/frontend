@@ -25,7 +25,7 @@
 
 import { useState } from 'react';
 
-export const useApi = apiFunction => {
+export function useApi(apiFunction) {
   const [response, setResponse] = useState({
     data: null,
     isFetching: false,
@@ -33,29 +33,31 @@ export const useApi = apiFunction => {
     isSuccess: false
   })
 
-  const fetchMethod = async () => {
+  const fetchMethod = () => {
     setResponse({
       data: null,
       isFetching: true,
       error: null,
       isSuccess: false
     });
-    try {
-      const apiData = await apiFunction();
-      setResponse({
-        data: apiData,
-        isFetching: false,
-        error: null,
-        isSuccess: true
-      });
-    } catch (err) {
-      setResponse({
-        data: null,
-        isFetching: false,
-        error: err.message,
-        isSuccess: false
-      });
-    }
+
+    apiFunction()
+      .then(res => {
+        setResponse({
+          data: res,
+          isFetching: false,
+          error: null,
+          isSuccess: true
+        })
+      })
+      .catch(err => {
+        setResponse({
+          data: null,
+          isFetching: false,
+          error: err.message,
+          isSuccess: false
+        })
+      })
   };
 
   return [response, fetchMethod];
