@@ -3,7 +3,7 @@
 //   1a. To import every action along with the hook, use this:
 //         import {useApi} from "./utils/hooks/useApi";
 //         import {fetchResource, postResource, fetchTasks, postTask, putTask} from "./utils/api";
-// 2. Call the hook by passing the api function and any necessary arguments
+// 2. The hook takes a callback function -> that callback function is an api function with arguments per 2a below
 //   2a. Here are the HTTP Request options:
 //        - fetchResource(resource)
 //        - postResource(resource, action, credentials)
@@ -50,18 +50,17 @@ export function useApi(apiFunction) {
     apiFunction()
       .then(res => {
         setResponse({
+          ...response,
           data: res,
           isFetching: false,
-          error: null,
           isSuccess: true
         })
       })
       .catch(err => {
         setResponse({
-          data: null,
+          ...response,
           isFetching: false,
-          error: err.message,
-          isSuccess: false
+          error: err.message
         })
       })
   };
