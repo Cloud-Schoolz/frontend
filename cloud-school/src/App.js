@@ -1,5 +1,6 @@
 import React from "react";
 import './App.css';
+
 import { Link, Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
 import logo from "./assets/logo-in.png";
@@ -10,9 +11,11 @@ import dribbble from "./assets/dribbble-brands.svg";
 import github from "./assets/github-brands.svg";
 import envelope from "./assets/envelope-open-text-solid.svg";
 
+
 function App() {
   return (
     <div className="App">
+
       <nav className="navbar">
         <img src={logo} alt="School in the Clouds Logo" className="logo"/>
         <div className="navLinksContainer">
