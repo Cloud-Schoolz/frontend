@@ -10,11 +10,10 @@ export const fetchResource = async (resource) => {
     const response = (resource === "tasks")
       ? await axiosWithAuth().get(`${baseURL}/${resource}`)
       : await axios.get(`${baseURL}/${resource}`);
-    console.log(response);
-    return response;
+    return response.data;
   } catch (err) {
     console.log(`Error: ${err.response.data.message}`);
-    return err;
+    throw err;
   }
 };
 
@@ -24,13 +23,20 @@ export const fetchResource = async (resource) => {
 export const postResource = async (resource, action, credentials) => {
   try {
     const response = await axios.post(`${baseURL}/${resource}/${action}`, credentials);
-    console.log(response);
-    return response;
+    return response.data;
   } catch (err) {
     console.log(`Error: ${err.response.data.message}`);
     throw err;
   }
 };
 
-// If tasks, then we need axiosWithAuth for Post and Put
-// If logging in, we need axiosWithAuth to pass the token
+// Handles GET Requests for a volunteer's tasks
+export const fetchTasks = async (id) => {
+  try {
+    const response = await axiosWithAuth().get(`${baseURL}/volunteers/tasks/${id}`);
+    return response.data;
+  } catch (err) {
+    console.log(`Error: ${err.response.data.message}`);
+    throw err;
+  }
+}
