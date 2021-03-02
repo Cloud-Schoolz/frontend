@@ -35,7 +35,7 @@ export const useApi = apiFunction => {
 
   const fetchMethod = async () => {
     setResponse({
-      ...response,
+      data: null,
       isFetching: true,
       error: null,
       isSuccess: false
