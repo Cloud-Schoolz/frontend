@@ -22,7 +22,7 @@ function App() {
         </div>
       </nav>
       <Switch>
-        <Route component={Home} />
+        <Route path="/" component={Home} />
       </Switch>
       <footer className="footer">
         <div className="icons"> 
