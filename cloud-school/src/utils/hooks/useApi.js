@@ -2,21 +2,21 @@
 // 1. From your component, import this hook and any api functions you might need
 //   - for example,
 //         import {useApi} from "./utils/hooks/useApi";
-//         import {fetchAdmins, postAdmin} from "./utils/api";
-// 2. Call the hook by passing the api function and set two variables: the response and the creator function
+//         import {fetchResource, postResource} from "./utils/api";
+// 2. Call the hook by passing the api function and set two variables: the response and the response setter function
 //   - for example, to get all admins,
-//         const [adminsResponse, getAdmins] = useApi(() => fetchResource("admin"));
+//         const [allAdmins, getAllAdmins] = useApi(() => fetchResource("admin"));
 //   - for example, to register a new admin,
-//         const [createAdminResponse, createAdmin] = useApi(async () => {
-//           await postAdmin("admin", {
+//         const [newAdmin, postNewAdmin] = useApi(() => {
+//           postResource("admin", "register", {
 //             name: "clark",
 //             email: "ck@superhuman.com",
 //             password: "crypto"
 //           });
 //         });
 //   - and you would use the same hook for logging in but with different variable names, for example,
-//         const [logInAdminResponse, logInAdmin] = useApi(async () => {
-//           await postAdmin("admin", "register", {
+//         const [logInAdminResponse, logInAdmin] = useApi(() => {
+//           postAdmin("admin", "register", {
 //             email: "ck@superhuman.com",
 //             password: "crypto"
 //           });
