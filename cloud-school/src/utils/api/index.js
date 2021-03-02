@@ -30,10 +30,42 @@ export const postResource = async (resource, action, credentials) => {
   }
 };
 
-// Handles GET Requests for a volunteer's tasks
+// Handles GET Requests for a volunteer's tasks (admin and volunteers have access)
 export const fetchTasks = async (id) => {
   try {
     const response = await axiosWithAuth().get(`${baseURL}/volunteers/tasks/${id}`);
+    return response.data;
+  } catch (err) {
+    console.log(`Error: ${err.response.data.message}`);
+    throw err;
+  }
+}
+
+// Handles POST Requests for tasks (only admins have access)
+// Example of a task object to post:
+//     const taskToPost = {
+//       task_name: "Fusion Power",
+//       description: "Build nuclear fusion power plants",
+//     };
+export const postTask = async (task) => {
+  try {
+    const response = await axiosWithAuth().post(`${baseURL}/tasks`, task);
+    return response.data;
+  } catch (err) {
+    console.log(`Error: ${err.response.data.message}`);
+    throw err;
+  }
+}
+
+// Handles PUT Requests for tasks (only admins have access)
+// Example of a task object to post:
+//     const taskToUpdate = {
+//       task_name: "Lower Yeti Cost",
+//       description: "Reduce materials cost by 50%",
+//     };
+export const putTask = async (task, id) => {
+  try {
+    const response = await axiosWithAuth().put(`${baseURL}/tasks/${id}`, task);
     return response.data;
   } catch (err) {
     console.log(`Error: ${err.response.data.message}`);
