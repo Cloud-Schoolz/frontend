@@ -160,7 +160,7 @@
   padding-left: 10px;
 }
 
-.formContainer button {
+.form button {
   width: 100px;
   height: 40px;
   border: none;
@@ -170,16 +170,162 @@
   text-transform: uppercase;
   font-weight: 400;
   transition: 300ms ease-in-out;
+  margin-left: 15px;
 }
 
-.formContainer button:hover {
+.form button:hover {
   background-color: #2b94dd;
   transform: scale(1.1);
   transition: 300ms ease-in-out;
 }
 
-.formContainer button:hover,
-.formContainer button:focus {
+.form button:hover,
+.form button:focus {
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+
+#modalContainerLogin {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(10, 12, 18, 0.5);
+  user-select: none;
+}
+
+#modalContainerSignUp {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(10, 12, 18, 0.5);
+  user-select: none;
+}
+
+#modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 14% auto;
+  width: 440px;
+  height: 364px;
+  background-color: #ffffff;
+  border-radius: 25px;
+}
+
+#modalLogin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 14% auto;
+  width: 440px;
+  height: 314px;
+  background-color: #ffffff;
+  border-radius: 25px;
+}
+
+#modalHeader {
+  display: flex;
+  justify-content: space-around;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin: 20px auto;
+  width: 90%;
+  align-items: center;
+  color: rgb(37, 41, 48);
+}
+
+#close:hover,
+#close:focus {
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.modalHr {
+  border: 1px solid rgb(38, 51, 153);
+  width: 80%;
+  margin-top: -15px;
+}
+
+#bottomModalHr {
+  width: 100%;
+  margin-top: 15px;
+}
+
+#modalFormContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: 5%;
+}
+
+#modalForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -20px;
+}
+
+#modalForm label {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.inputs {
+  margin: 10px;
+  width: 140px;
+  height: 20px;
+  border: none;
+  border-radius: 31.5px;
+  background-color: rgb(37, 41, 48, 0.5);
+  padding-left: 10px;
+  color: #000000;
+  font-weight: 400;
+}
+
+.inputs:hover,
+.inputs:focus {
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+
+#modalButton {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 31.5px;
+  background-color: rgb(38, 51, 153, 0.8);
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: 400;
+  transition: 300ms ease-in-out;
+}
+
+#modalButton:hover {
+  background-color: #2b94dd;
+  transform: scale(1.1);
+  transition: 300ms ease-in-out;
+}
+
+#modalButton:hover,
+#modalButton:focus {
   text-decoration: none;
   outline: none;
   cursor: pointer;

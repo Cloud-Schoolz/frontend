@@ -25,7 +25,7 @@ function App() {
         <Route component={Home} />
       </Switch>
       <footer className="footer">
-        <div class="icons">
+        <div className="icons"> 
           <img src={facebook} alt="facebook"/>
           <img src={twitter} alt="twitter"/>
           <img src={instagram} alt="instagram"/>
