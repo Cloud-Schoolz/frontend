@@ -1,8 +1,13 @@
 import React from "react";
-import './App.css';
-
-import { Link, Route, Switch } from "react-router-dom";
+import { Link, Route, Switch, useHistory } from "react-router-dom";
+// Components
 import Home from "./components/Home";
+import AdminLandingPage from "./components/admin/AdminLandingPage";
+import VolunteerLandingPage from "./components/volunteer/VolunteerLandingPage";
+import StudentLandingPage from "./components/student/StudentLandingPage"
+import PrivateRoute from "./components/PrivateRoute";
+// Styles
+import './App.css';
 import logo from "./assets/logo-in.png";
 import facebook from "./assets/facebook-brands.svg";
 import twitter from "./assets/twitter-brands.svg";
@@ -13,18 +18,29 @@ import envelope from "./assets/envelope-open-text-solid.svg";
 
 
 function App() {
+  const history= useHistory();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    history.push('/');
+  };
+
   return (
     <div className="App">
 
       <nav className="navbar">
         <img src={logo} alt="School in the Clouds Logo" className="logo"/>
         <div className="navLinksContainer">
-          <Link to="#" className="navLinks">Login</Link>
-          <Link to="#" className="navLinks">SignUp</Link>
-          <Link to="#" className="navLinks">Logout</Link>
+          <a href="#mainRegion" className="navLinks" onClick={handleLogout}>Login</a>
+          <a href="#mainRegion" className="navLinks" onClick={handleLogout}>SignUp</a>
+          <Link to="/" className="navLinks" onClick={handleLogout}>Logout</Link>
         </div>
       </nav>
       <Switch>
+        <PrivateRoute path="/admin/:id" component={AdminLandingPage} />
+        <PrivateRoute path="/students/:id" component={StudentLandingPage} />
+        <PrivateRoute path="/volunteers/:id" component={VolunteerLandingPage} />
         <Route path="/" component={Home} />
       </Switch>
       <footer className="footer">

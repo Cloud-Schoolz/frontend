@@ -1,20 +1,32 @@
 import React, { useState, useEffect } from 'react'
-// import { Route, Switch } from "react-router-dom";
 import "./Home.css";
 import arrow from "../assets/arrow.svg";
+import { useApi } from '../utils/hooks/useApi';
+import { postResource } from '../utils/api';
 
-//import Modals
-// import AdminSignUp from "./modals/adminSignUp";
-// import AdminLogIn from "./modals/adminLogIn";
+import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { addRole } from '../actions';
 
-function Home() {
-    const [account, setAccount] = useState('');
+function Home(props) {
+    const { role } = props;
     const [parameter, setParameter] = useState('');
+    const [formValues, setFormValues] = useState({});
+    const [signLog, executeSignLog] = useApi(() => postResource(role, parameter, formValues));
+    const history = useHistory();
 
     useEffect(() => {
         let accountType = document.getElementById('accountType');
-        setAccount(accountType.value);
+        props.addRole(accountType.value);
     }, [])
+
+    useEffect(() => {
+        if(signLog.data && parameter === 'login') {
+            localStorage.setItem("token", signLog.data.token);
+            localStorage.setItem("role", role);
+            history.push(`/${role}/${signLog.data.userID}`);
+        }
+    }, [signLog])
     
     window.onclick = function(event) {
         // Grabbing Elements
@@ -46,7 +58,7 @@ function Home() {
         let logInModal = document.getElementById('modalContainerLogin');
         let volunteerSignUp = document.getElementById('modalContainerVolunteer');
         // Logic handling what modal pops up
-        if(account === "volunteer" && ev.target.innerHTML === "Sign Up") {
+        if(role === "volunteers" && ev.target.innerHTML === "Sign Up") {
             volunteerSignUp.style.display = "block";
             let newParameter = ev.target.id;
             setParameter(newParameter);
@@ -61,21 +73,31 @@ function Home() {
         }
     }
 
-    console.log(parameter);
-
-    const handleChange = () => {
+    const handleRoleChange = () => {
         let accountType = document.getElementById('accountType');
-        setAccount(accountType.value);
-        console.log(account);
+        props.addRole(accountType.value);
     }
 
-    const handleSubmit = (ev) => {
-        ev.preventDefault();
-        let accountType = document.getElementById('accountType');
-        setAccount(accountType.value);
+    const handleFormChange = (e) => {
+        const valueToAdd = e.target.name === "country_id" ? parseInt(e.target.value) : e.target.value;
+        setFormValues({
+            ...formValues,
+            [e.target.name]: valueToAdd
+        })
     }
 
-    console.log(account);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        let accountType = document.getElementById('accountType');
+        props.addRole(accountType.value);
+    }
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        executeSignLog();
+        setFormValues({});
+        closeModal();
+    }
 
     return (
         <div className="Home">
@@ -98,10 +120,10 @@ function Home() {
                             <div className="formContainer">
                                 <form className="form" onSubmit={handleSubmit}>
                                     <label for="accountType">Choose Your Account:</label>
-                                    <select onChange={handleChange} id="accountType" name="accountType">
+                                    <select onChange={handleRoleChange} id="accountType" name="accountType">
                                         <option value="admin">Admin</option>
-                                        <option value="volunteer">Volunteer</option>
-                                        <option value="student">Student</option>
+                                        <option value="volunteers">Volunteer</option>
+                                        <option value="students">Student</option>
                                     </select>
                                     <button id="register" type="submit" onClick={openModal}>Sign Up</button>
                                     <button id="login" type="submit" onClick={openModal}>Log In</button>
@@ -119,9 +141,10 @@ function Home() {
                     </div>
                     <hr className="modalHr"/>
                     <div id="modalFormContainer">
-                        <form id="modalForm">
+                        <form id="modalForm" onSubmit={handleFormSubmit}>
                             <label htmlFor="name">Name:
                                 <input 
+                                  onChange={handleFormChange}
                                   className="inputs"
                                   name="name"
                                   type="text"
@@ -129,21 +152,23 @@ function Home() {
                             </label>
                             <label htmlFor="email">Email:
                                 <input 
+                                onChange={handleFormChange}
                                   className="inputs"
                                   name="email"
                                   type="email"
                                 />
                             </label>
                             <label htmlFor="password">Password:
-                                <input 
+                                <input
+                                onChange={handleFormChange} 
                                   className="inputs"
                                   name="password"
                                   type="password"
                                 />
                             </label>
+                            <hr id="bottomModalHr" className="modalHr"/>
+                            <button type="submit" id="modalButton">Sign Up!</button>
                         </form>
-                        <hr id="bottomModalHr" className="modalHr"/>
-                        <button id="modalButton">Sign Up!</button>
                     </div>
                 </div>
             </div>
@@ -155,9 +180,10 @@ function Home() {
                     </div>
                     <hr className="modalHr"/>
                     <div id="modalFormContainer">
-                        <form id="modalForm">
+                        <form id="modalForm" onSubmit={handleFormSubmit}>
                             <label htmlFor="email">Email:
                                 <input 
+                                onChange={handleFormChange}
                                   className="inputs"
                                   name="email"
                                   type="email"
@@ -165,14 +191,15 @@ function Home() {
                             </label>
                             <label htmlFor="password">Password:
                                 <input 
+                                onChange={handleFormChange}
                                   className="inputs"
                                   name="password"
                                   type="password"
                                 />
                             </label>
+                            <hr id="bottomModalHr" className="modalHr"/>
+                            <button type="submit" id="modalButton">Log In!</button>
                         </form>
-                        <hr id="bottomModalHr" className="modalHr"/>
-                        <button id="modalButton">Log In!</button>
                     </div>
                 </div>
             </div>
@@ -184,9 +211,10 @@ function Home() {
                     </div>
                     <hr className="modalHr"/>
                     <div id="modalFormContainer">
-                        <form id="modalForm">
+                        <form id="modalForm" onSubmit={handleFormSubmit}>
                             <label htmlFor="name">Name:
                                 <input 
+                                onChange={handleFormChange}
                                   className="inputs"
                                   name="name"
                                   type="text"
@@ -194,6 +222,7 @@ function Home() {
                             </label>
                             <label htmlFor="email">Email:
                                 <input 
+                                onChange={handleFormChange}
                                   className="inputs"
                                   name="email"
                                   type="email"
@@ -201,6 +230,7 @@ function Home() {
                             </label>
                             <label htmlFor="password">Password:
                                 <input 
+                                onChange={handleFormChange}
                                   className="inputs"
                                   name="password"
                                   type="password"
@@ -208,7 +238,8 @@ function Home() {
                             </label>
                             <hr id="volunteerExtraHr"/>
                             <label for="availability">Choose Your Availability:</label>
-                            <select className="inputs" id="availability" name="availability">
+                            <select onChange={handleFormChange} className="inputs" id="availability" name="availability">
+                                <option value="none" selected disabled>--Select Day--</option>
                                 <option value="Monday">Monday</option>
                                 <option value="Tuesday">Tuesday</option>
                                 <option value="Wednesday">Wednesday</option>
@@ -219,8 +250,8 @@ function Home() {
                                 <option value="Weekdays">Weekdays</option>
                                 <option value="Weekends">Weekends</option>
                             </select>
-                            <label for="country">Choose Your Country:</label>
-                            <select id="country" name="country" size="5">
+                            <label for="country_id">Choose Your Country:</label>
+                            <select onChange={handleFormChange} id="country" name="country_id" size="5">
                                 <option value="1">Afghanistan</option>
                                 <option value="2">Aland Islands</option>
                                 <option value="3">Albania</option>
@@ -472,9 +503,9 @@ function Home() {
                                 <option value="249">Curaçao</option>
                                 <option value="250">Sint Maarten (Dutch part)</option>
                             </select>
+                            <hr id="bottomModalHr" className="modalHr"/>
+                            <button type="submit" id="modalButton">Sign Up!</button>
                         </form>
-                        <hr id="bottomModalHr" className="modalHr"/>
-                        <button id="modalButton">Sign Up!</button>
                     </div>
                 </div>
             </div>
@@ -482,4 +513,10 @@ function Home() {
     )
 }
 
-export default Home
+const mapStateToProps = (state) => {
+    return({
+        role: state.role,
+    })
+}
+
+export default connect(mapStateToProps, { addRole })(Home)
