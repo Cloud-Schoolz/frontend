@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import axiosWithAuth from '../../utils/axiosWithAuth';
-import VolunteerTaskPage from './volunteerTaskPage';
+import VolunteerTaskPage from './VolunteerTaskPage';
 
 const VolunteerLandingPage = () =>{
 
