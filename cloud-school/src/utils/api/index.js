@@ -30,6 +30,17 @@ export const postResource = async (resource, action, credentials) => {
   }
 };
 
+// Handles GET Requests for a specific volunteer (admin and volunteers have access)
+export const fetchVolunteer = async (id) => {
+  try {
+    const response = await axiosWithAuth().get(`${baseURL}/volunteers/${id}`);
+    return await response.data;
+  } catch (err) {
+    console.log(`Error: ${err.response.data.message}`);
+    throw err;
+  }
+}
+
 // Handles GET Requests for a volunteer's tasks (admin and volunteers have access)
 export const fetchTasks = async (id) => {
   try {
@@ -62,3 +73,4 @@ export const putTask = async (task, id) => {
     throw err;
   }
 }
+
