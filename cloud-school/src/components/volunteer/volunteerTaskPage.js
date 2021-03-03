@@ -1,7 +1,7 @@
 
 
 const VolunteerTaskPage = (props) =>{
-console.log(props.task)
+// console.log(props.task)
 
     return(
         <div className='volunteer-task'>
