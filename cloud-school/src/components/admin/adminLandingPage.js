@@ -5,6 +5,7 @@ import { useApi } from '../../utils/hooks/useApi';
 import { fetchResource, fetchTasks } from '../../utils/api';
 import VolunteerList from './VolunteerList';
 // Will style later.
+import "./AdminLandingPage.css";
 
 const initialFormValues = {
     taskName: '',
@@ -42,40 +43,38 @@ const AdminLandingPage = () => {
     }
 
     return (
-        <div >
+        <div id="adminLanding">
             <h2>Admin Page</h2>
-        <button onClick={() => setExpand=(true)}>Create New Task</button>
-        <button onClick={expandTask}>Edit Existing Task</button>
-        <VolunteerList volunteers={volunteers.data}/>
-        {expand && (
-            <div onSubmit={submitNewTask}>
-                <h2>A New Task</h2>
-                <label>Task Name:  </label>
-                    <input
-                    onChange={e =>
-                    setFillOutForm({...fillOutForm, taskName: e.target.value})}
-                    value={fillOutForm.taskName}
-                    />
-
-                <label>Task Description:  </label>
+            <VolunteerList volunteers={volunteers.data}/>
+            {expand && (
+                <div onSubmit={submitNewTask}>
+                    <h2>A New Task</h2>
+                    <label>Task Name:  </label>
                         <input
                         onChange={e =>
-                        setFillOutForm({...fillOutForm, taskDescription: e.target.value})}
-                        value={fillOutForm.taskDescription}
+                        setFillOutForm({...fillOutForm, taskName: e.target.value})}
+                        value={fillOutForm.taskName}
                         />
 
-                        <button type='submit'>Save</button>
-                        <button onClick={() => setExpand(false)}>Cancel</button>
-            </div>
-        )}
+                    <label>Task Description:  </label>
+                            <input
+                            onChange={e =>
+                            setFillOutForm({...fillOutForm, taskDescription: e.target.value})}
+                            value={fillOutForm.taskDescription}
+                            />
 
-        {showTasks && (
-            <div className='tasks'>
-                <label tasks={tasks} setShowTasks={setShowTasks} />
+                            <button type='submit'>Save</button>
+                            <button onClick={() => setExpand(false)}>Cancel</button>
+                </div>
+            )}
 
-                <button onClick={() => setShowTasks(false)}>Hide</button>
-            </div>
-        )}
+            {showTasks && (
+                <div className='tasks'>
+                    <label tasks={tasks} setShowTasks={setShowTasks} />
+
+                    <button onClick={() => setShowTasks(false)}>Hide</button>
+                </div>
+            )}
         </div>
     )
 };
