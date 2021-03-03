@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 function ToDoList ({ steps, name, todos_id, first_name, last_name, volunteer, admin_id, is_completed }){
     const type = useSelector(state => state.authentication.user.type);
     const user_id = useSelector(state => state.authentication.user.id);
-    const dispatch = useDispatch(); // Not entirely sure if we need it, delete if not needed
     const [ isEditing, setIsEditing ] = useState(false);
     const [ listTitle, setListTitle ] = useState(name);
     const [ isCompleted, setIsCompleted ] = useState(is_completed);
@@ -34,6 +33,7 @@ function ToDoList ({ steps, name, todos_id, first_name, last_name, volunteer, ad
     }
 
     const toggleCompleted = event => {
+        setIsCompleted(true);
         event.preventDefault();
     }
 
@@ -49,9 +49,14 @@ function ToDoList ({ steps, name, todos_id, first_name, last_name, volunteer, ad
     
     return (
         <form onSubmit={isEditing ? updateTodoList : startEditing }>
-            { isEditing ? <input className='title-input' value={listTitle} onChange={handleTitleChanges} /> : <div className='title'>{name}</div> }
-            {type === 'admin' ? <div className='assigned-to'>Assigned To:</div> : ``}
-            <div className={type === 'admin' ? 'assigned-name' : 'name' }>{type === 'admin' ? `${volunteer[0].first_name} ${volunteer[0].last_name}` : `${first_name} ${last_name}` }</div>
+            { isEditing ? 
+            <input className='title-input' value={listTitle} onChange={handleTitleChanges} /> 
+            : <div className='title'>{name}</div> }
+            {type === 'admin' ? 
+            <div className='assigned-to'>Assigned To:</div> : ``}
+            <div className={type === 'admin' ? 'assigned-name' : 'name' }>
+                {type === 'admin' ? `${volunteer[0].first_name} ${volunteer[0].last_name}` : `${first_name} ${last_name}` }
+            </div>
             <div className={type === 'admin' ? 'items' : 'items'}>
                 {steps.map((step, index) => (
                     isEditing
