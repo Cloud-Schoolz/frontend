@@ -1,8 +1,18 @@
+// Dependencies
 import React, { useState, useEffect } from 'react';
+
+// Hooks
 import { fetchResource } from '../../utils/api';
 import { useApi } from '../../utils/hooks/useApi';
+
+// Components
 import VolunteerForStudent from './VolunteerForStudent';
+
+// Modules
 import { countriesList } from "../../utils/countries";
+
+// Styles
+import './VolunteerForStudent.css';
 
 function StudentLandingPage() {
   const [searchParams, setSearchParams] = useState({country: "", day: ""});
@@ -61,42 +71,52 @@ function StudentLandingPage() {
   };
 
   return (
-    <div>
-      <h2>Welcome</h2>
+    <div className="student-container">
+      <h2 className="student-welcome">Welcome Student!</h2>
       {
         volunteersResponse.isFetching &&
-        <h3>Loading...</h3>
+        <h3 className="student-welcome">Loading...</h3>
       }
-      {
-        volunteersResponse.isSuccess &&
-        <input
-          type="text"
-          name="country"
-          value={searchParams.country}
-          onChange={handleSearchChange}
-        />
-      }
-      {
-        volunteersResponse.isSuccess &&
-        <select onChange={handleSearchChange} name="day">
-          <option value="" selected>--Filter Day--</option>
-          <option value="Monday">Monday</option>
-          <option value="Tuesday">Tuesday</option>
-          <option value="Wednesday">Wednesday</option>
-          <option value="Thursday">Thursday</option>
-          <option value="Friday">Friday</option>
-          <option value="Saturday">Saturday</option>
-          <option value="Sunday">Sunday</option>
-          <option value="Weekdays">Weekdays</option>
-          <option value="Weekends">Weekends</option>
-        </select>
-      }
-      {
-        volunteers &&
-        volunteers.map(volunteer => {
-          return <VolunteerForStudent volunteer={volunteer}/>
-        })
-      }
+      <div className="student-search-container">
+        {
+          volunteersResponse.isSuccess &&
+          <input
+            className="student-country search"
+            type="text"
+            name="country"
+            value={searchParams.country}
+            onChange={handleSearchChange}
+            placeholder="--Filter Country--"
+          />
+        }
+        {
+          volunteersResponse.isSuccess &&
+          <select
+            className="student-day search"
+            onChange={handleSearchChange}
+            name="day"
+          >
+            <option value="" selected>--Filter Day--</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+            <option value="Weekdays">Weekdays</option>
+            <option value="Weekends">Weekends</option>
+          </select>
+        }
+      </div>
+      <div className="volunteers-container">
+        {
+          volunteers &&
+          volunteers.map(volunteer => {
+            return <VolunteerForStudent key={volunteer.id} volunteer={volunteer}/>
+          })
+        }
+      </div>
     </div>
   )
 }
