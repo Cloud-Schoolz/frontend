@@ -1,0 +1,63 @@
+#volunteersDisplay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#volunteersDisplay > form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#modalContainer {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(10, 12, 18, 0.5);
+  user-select: none;
+}
+
+#taskList:hover,
+#taskList:focus {
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+
+#volunteerModalButton {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 150px;
+  height: 40px;
+  border: none;
+  border-radius: 31.5px;
+  background-color: rgb(38, 51, 153, 0.8);
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: 400;
+  transition: 300ms ease-in-out;
+}
+
+#volunteerModalButton:hover,
+#volunteerModalButton:focus {
+  background-color: #2b94dd;
+  transform: scale(1.1);
+  transition: 300ms ease-in-out;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+
+#volunteerModalButton:hover {
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
