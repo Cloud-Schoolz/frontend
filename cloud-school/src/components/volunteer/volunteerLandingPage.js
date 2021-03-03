@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import axiosWithAuth from '../../utils/axiosWithAuth';
 import VolunteerTaskPage from './VolunteerTaskPage';
-import { useApi } from './../../utils/hooks/useApi'
+import { useApi } from '../../utils/hooks/useApi'
 import { fetchTasks } from '../../utils/api';
 
 const VolunteerLandingPage = () =>{

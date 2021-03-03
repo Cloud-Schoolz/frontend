@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { useApi } from '../../utils/hooks/useApi';
 import { fetchResource, fetchTasks } from '../../utils/api';
 import VolunteerList from './VolunteerList';
-// Will style later.
 import "./AdminLandingPage.css";
 
 const initialFormValues = {
