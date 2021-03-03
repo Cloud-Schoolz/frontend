@@ -1,7 +1,7 @@
 import {ADD_ROLE, REMOVE_ROLE} from './../actions'
 
 const initialState = {
-    role:''
+    role:'',
 }
 
 const reducer = (state= initialState, action)=>{
