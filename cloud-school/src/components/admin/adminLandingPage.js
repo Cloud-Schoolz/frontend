@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
-import styled from "styled-component";
-import { connect } from 'react-redux';
-// May need to make an import { getTasks } from ../Action for an admin to fetch tasks.
+import axiosWithAuth  from '../../utils/axiosWithAuth';
+import styled from "styled-components";
+import { useApi } from '../../utils/hooks/useApi';
+import { fetchResource, fetchTasks } from '../../utils/api';
+import VolunteerList from './VolunteerList';
 // Will style later.
 
 const initialFormValues = {
@@ -10,11 +11,19 @@ const initialFormValues = {
     taskDescription: ''
 }
 
-const adminLandingPage = ({ isFetching, tasks, error, getTask }) => {
+const AdminLandingPage = () => {
     const [ expand, setExpand ] = useState(false);
     const [ fillOutForm, setFillOutForm ] = useState(initialFormValues);
     const [ showTasks, setShowTasks ] = useState(false);
     const [ taskList, setTaskList ] = useState(initialFormValues);
+    const [ volunteers, setVolunteers ] = useApi(() => fetchResource('volunteers'));
+    const [ tasks, setTasks ] = useApi(() => fetchTasks(3));
+
+    useEffect(() => {
+        setVolunteers();
+    }, [])
+
+    console.log(volunteers);
 
     const submitNewTask = e => {
         e.preventDefault();
@@ -30,7 +39,6 @@ const adminLandingPage = ({ isFetching, tasks, error, getTask }) => {
     const expandTask = e => {
         e.preventDefault();
         setShowTasks(true);
-        getTasks(); // We may need to implement and fetch tasks under ../actions/index.js
     }
 
     return (
@@ -38,32 +46,32 @@ const adminLandingPage = ({ isFetching, tasks, error, getTask }) => {
             <h2>Admin Page</h2>
         <button onClick={() => setExpand=(true)}>Create New Task</button>
         <button onClick={expandTask}>Edit Existing Task</button>
+        <VolunteerList volunteers={volunteers.data}/>
         {expand && (
-            <StyledNewTaskForm onSubmit={submitNewTask}>
+            <div onSubmit={submitNewTask}>
                 <h2>A New Task</h2>
-                <Label>Task Name:  </Label>
+                <label>Task Name:  </label>
                     <input
                     onChange={e =>
                     setFillOutForm({...fillOutForm, taskName: e.target.value})}
                     value={fillOutForm.taskName}
                     />
 
-                <Label>Task Description:  </Label>
+                <label>Task Description:  </label>
                         <input
                         onChange={e =>
                         setFillOutForm({...fillOutForm, taskDescription: e.target.value})}
                         value={fillOutForm.taskDescription}
                         />
 
-                        <StyledButton type='submit'>Save</StyledButton>
-                        <StyledButton onClick={() => setExpand(false)}>Cancel</StyledButton>
-            </StyledNewTaskForm>
+                        <button type='submit'>Save</button>
+                        <button onClick={() => setExpand(false)}>Cancel</button>
+            </div>
         )}
 
         {showTasks && (
             <div className='tasks'>
-                {isFetching}
-                <TaskCard tasks={tasks} setShowTasks={setShowTasks} />
+                <label tasks={tasks} setShowTasks={setShowTasks} />
 
                 <button onClick={() => setShowTasks(false)}>Hide</button>
             </div>
@@ -72,15 +80,4 @@ const adminLandingPage = ({ isFetching, tasks, error, getTask }) => {
     )
 };
 
-const mapStateToProps = state => {
-    return {
-        isFetching: state.isFetching,
-        tasks: state.tasks,
-        error: state.error
-    }
-}
-
-export default connect(
-    mapStateToProps,
-    { getTasks })
-    (adminLandingPage);
+export default AdminLandingPage;
