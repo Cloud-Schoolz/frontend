@@ -2,41 +2,49 @@ import { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import axiosWithAuth from '../../utils/axiosWithAuth';
 import VolunteerTaskPage from './VolunteerTaskPage';
+import { useApi } from './../../utils/hooks/useApi'
+import { fetchTasks } from '../../utils/api';
 
 const VolunteerLandingPage = () =>{
 
-    const [tasks, setTasks] = useState([])
-    const [name, setName] = useState('')
+    const [name, setName] = useState([])
     const {id} = useParams();
-    console.log(id);
+    const [volunteerTasks, setVolunteerTasks ] = useApi(()=>fetchTasks(id))
+    // console.log(id);
 
     useEffect(()=>{
-        getTask()
+        setVolunteerTasks()
+        getName()
     }, [])
 
-    const getTask = ()=>{
+    
+
+    
+    const getName = ()=>{
         axiosWithAuth()
-            .get(`/volunteers/tasks/${id}`)
+            .get(`https://cloud-schoolz.herokuapp.com/api/volunteers/${id}`)
             .then(res=>{
-                console.log(res)
-                setTasks(
-                    res.data
+                // console.log(res)
+                setName(
+                    res.data.name
                 )
-                // setName(
-                //     res.data[0].volunteer_name
-                // )
             })
-    }
+            .catch(err =>{console.log(err)})
+
+        }
+    
     console.log(name)
+    console.log(volunteerTasks.data)
 
 
 
     return(
         <div className='volunteer-main'>
-            <h2>Welcome {name} hello !</h2>
+            <h2>Welcome {name}!</h2>
             <p>Thanks for giving us your time. Here you will see your upcoming task</p>
             <h4>TASK</h4>
-            {tasks.map(task=>(
+            {!!volunteerTasks.data &&
+            volunteerTasks.data.map(task=>(
                 <VolunteerTaskPage task={task} key={task.id} />
             ))}
         </div>
