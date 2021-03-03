@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from 'react'
-// import { Route, Switch } from "react-router-dom";
 import "./Home.css";
 import arrow from "../assets/arrow.svg";
 import { useApi } from '../utils/hooks/useApi';
 import { postResource } from '../utils/api';
 
+import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { addRole } from '../actions';
 
-function Home() {
-    const [account, setAccount] = useState('');
+function Home(props) {
+    const { role } = props;
     const [parameter, setParameter] = useState('');
     const [formValues, setFormValues] = useState({});
-    const [signLog, executeSignLog] = useApi(() => postResource(account, parameter, formValues));
+    const [signLog, executeSignLog] = useApi(() => postResource(role, parameter, formValues));
+    const history = useHistory();
 
     useEffect(() => {
         let accountType = document.getElementById('accountType');
-        setAccount(accountType.value);
+        props.addRole(accountType.value);
     }, [])
+
+    useEffect(() => {
+        if(signLog.data && parameter === 'login') {
+            localStorage.setItem("token", signLog.data.token);
+            localStorage.setItem("role", role);
+            history.push(`/${role}/${signLog.data.userID}`);
+        }
+    }, [signLog])
     
     window.onclick = function(event) {
         // Grabbing Elements
@@ -47,7 +58,7 @@ function Home() {
         let logInModal = document.getElementById('modalContainerLogin');
         let volunteerSignUp = document.getElementById('modalContainerVolunteer');
         // Logic handling what modal pops up
-        if(account === "volunteers" && ev.target.innerHTML === "Sign Up") {
+        if(role === "volunteers" && ev.target.innerHTML === "Sign Up") {
             volunteerSignUp.style.display = "block";
             let newParameter = ev.target.id;
             setParameter(newParameter);
@@ -62,12 +73,9 @@ function Home() {
         }
     }
 
-    console.log(parameter);
-
     const handleRoleChange = () => {
         let accountType = document.getElementById('accountType');
-        setAccount(accountType.value);
-        console.log(account);
+        props.addRole(accountType.value);
     }
 
     const handleFormChange = (e) => {
@@ -81,20 +89,15 @@ function Home() {
     const handleSubmit = (e) => {
         e.preventDefault();
         let accountType = document.getElementById('accountType');
-        setAccount(accountType.value);
+        props.addRole(accountType.value);
     }
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        console.log(formValues);
         executeSignLog();
         setFormValues({});
         closeModal();
     }
-
-    console.log(signLog);
-    console.log(account);
-    console.log(formValues);
 
     return (
         <div className="Home">
@@ -510,4 +513,10 @@ function Home() {
     )
 }
 
-export default Home
+const mapStateToProps = (state) => {
+    return({
+        role: state.role,
+    })
+}
+
+export default connect(mapStateToProps, { addRole })(Home)
