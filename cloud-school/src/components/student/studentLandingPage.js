@@ -55,10 +55,16 @@ function StudentLandingPage() {
   const handleFilter = () => {
     const formattedVolunteers = createFormattedVolunteers()
     const filteredVolunteers = formattedVolunteers.filter(volunteer => {
-      return (
-        volunteer.country.includes(searchParams.country) &&
-        volunteer.availability.includes(searchParams.day)
-      )
+      if (!volunteer.country && !searchParams.country) {
+        return volunteer.availability.includes(searchParams.day);
+      } else if (!volunteer.country && searchParams.country) {
+        return false;
+      } else {
+        return (
+          volunteer.country.includes(searchParams.country) &&
+          volunteer.availability.includes(searchParams.day)
+        );
+      }
     });
     setVolunteers(filteredVolunteers);
   };
