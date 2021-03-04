@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import "./Home.css";
 import arrow from "../assets/arrow.svg";
+import logo from "../assets/logo-in.png";
+import stockImage2 from "../assets/pic02.jpg";
+import stockImage3 from "../assets/pic03.jpg";
 import { useApi } from '../utils/hooks/useApi';
 import { postResource } from '../utils/api';
 
@@ -102,11 +105,32 @@ function Home(props) {
     return (
         <div className="Home">
             <div className="header">
-                <hr id="hr" className="hr"/>
+                <hr className="hr"/>
                 <h1>School in the Cloud</h1>
                 <hr className="hr"/>
                 <h3>School in the Cloud is a platform that trains senior volunteers to teach students in a group or individual setting.</h3>
-                <a id="headerButton" href="#mainRegion"><button>Learn More<img src={arrow} alt="arrow"/></button></a>
+                <a id="headerButton" href="#spotlightContainer"><button>Learn More<img src={arrow} alt="arrow"/></button></a>
+            </div>
+            <div id="spotlightContainer">
+                <section id="spotlight">
+                    <div id="spotlightImage1"><img src={stockImage3} alt="Person takes another's hand" /></div>
+                    <div class="spotlightContent">
+                        <hr className="hr"/>
+                        <h2>Take Advantage of Remote,<br/>Personal Learning</h2>
+                        <hr className="hr"/>
+                        <p>You'll be as excited as the stock photo people to know you can use School in the Cloud for getting personalized tutoring attention in whatever field you desire.</p>
+                    </div>
+                </section>
+                <section id="spotlightSpecial">
+                    <div class="spotlightContent">
+                        <hr className="hr"/>
+                        <h2>Gain Valuable Experience<br />from Old Karens</h2>
+                        <hr className="hr"/>
+                        <p>Learn from the source! Next time you want to speak to a manager, you'll know what to say in order to ruin any service industry workers' day.</p>
+                    </div>
+                    <div id="spotlightImage2"><img src={stockImage2} alt="Some lady tutoring" /></div>
+                </section>
+                <section id="spotlightEmpty"><img src={logo} alt=""/></section>
             </div>
             <div id="mainRegion" className="actionContainer">
                 <div className="actionOuter">

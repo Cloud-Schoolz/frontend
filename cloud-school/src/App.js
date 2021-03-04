@@ -28,7 +28,6 @@ function App() {
 
   return (
     <div className="App">
-
       <nav className="navbar">
         <img src={logo} alt="School in the Clouds Logo" className="logo"/>
         <div className="navLinksContainer">
