@@ -1,0 +1,11 @@
+/* *{
+    border: thick black 1pc;
+} */
+
+
+.volunteerMain{
+    color:white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

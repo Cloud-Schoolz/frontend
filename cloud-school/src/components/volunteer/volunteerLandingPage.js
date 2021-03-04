@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import axiosWithAuth from '../../utils/axiosWithAuth';
 import VolunteerTaskPage from './VolunteerTaskPage';
-import { useApi } from './../../utils/hooks/useApi'
+import { useApi } from '../../utils/hooks/useApi'
 import { fetchTasks } from '../../utils/api';
+import './VolunteerLandingPage.css'
 
 const VolunteerLandingPage = () =>{
 
@@ -39,7 +40,7 @@ const VolunteerLandingPage = () =>{
 
 
     return(
-        <div className='volunteer-main'>
+        <div className='volunteerMain'>
             <h2>Welcome {name}!</h2>
             <p>Thanks for giving us your time. Here you will see your upcoming task</p>
             <h4>TASK</h4>
