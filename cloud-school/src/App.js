@@ -4,9 +4,9 @@ import { Link, Route, Switch, useHistory } from "react-router-dom";
 import Home from "./components/Home";
 import AdminLandingPage from "./components/admin/AdminLandingPage";
 import VolunteerLandingPage from "./components/volunteer/VolunteerLandingPage";
-import StudentLandingPage from "./components/student/StudentLandingPage"
+import StudentLandingPage from "./components/student/StudentLandingPage";
 import PrivateRoute from "./components/PrivateRoute";
-// Styles
+// Styles 
 import './App.css';
 import logo from "./assets/logo-in.png";
 import facebook from "./assets/facebook-brands.svg";
