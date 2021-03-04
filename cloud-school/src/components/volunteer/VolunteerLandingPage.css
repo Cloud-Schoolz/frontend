@@ -5,7 +5,36 @@
 
 .volunteerMain{
     color:white;
+    background-color:rgb(38, 51, 153, .6);
+    width: 80%;
+    margin: 20px auto;
+    border-radius: 31.5px;
+    padding: 15px 0px ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 80%;
+    flex-grow: 2;
+}
+
+.volunteerMain > p{
+    
+    font-family: 'Montserrat',sans-serif;
+    padding: 4%;
+}
+.volunteer-task{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #2b94dd;
+    border-radius: 31.5px;
+    width: 69%;
+    height: 7vh;
+    margin: 3%;
+    font-family: 'Montserrat',sans-serif;
 }
+
