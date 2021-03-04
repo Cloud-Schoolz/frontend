@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import axiosWithAuth from '../../utils/axiosWithAuth';
 import VolunteerTaskPage from './VolunteerTaskPage';
-import { useApi } from './../../utils/hooks/useApi'
+import { useApi } from '../../utils/hooks/useApi'
 import { fetchTasks } from '../../utils/api';
 
-const VolunteerLandingPage = () =>{
+const VolunteerLandingPage = () => {
 
     const [name, setName] = useState([])
     const {id} = useParams();
@@ -16,9 +16,6 @@ const VolunteerLandingPage = () =>{
         setVolunteerTasks()
         getName()
     }, [])
-
-    
-
     
     const getName = ()=>{
         axiosWithAuth()
@@ -35,8 +32,6 @@ const VolunteerLandingPage = () =>{
     
     console.log(name)
     console.log(volunteerTasks.data)
-
-
 
     return(
         <div className='volunteer-main'>

@@ -1,4 +1,4 @@
-
+import React from "react";
 
 const VolunteerTaskPage = (props) =>{
 // console.log(props.task)
@@ -11,4 +11,4 @@ const VolunteerTaskPage = (props) =>{
     )
 }
 
-export default VolunteerTaskPage
+export default VolunteerTaskPage;
