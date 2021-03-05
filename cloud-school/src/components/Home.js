@@ -21,6 +21,7 @@ function Home(props) {
     useEffect(() => {
         let accountType = document.getElementById('accountType');
         props.addRole(accountType.value);
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
@@ -29,6 +30,7 @@ function Home(props) {
             localStorage.setItem("role", role);
             history.push(`/${role}/${signLog.data.userID}`);
         }
+        // eslint-disable-next-line
     }, [signLog])
     
     window.onclick = function(event) {
@@ -114,7 +116,7 @@ function Home(props) {
             <div id="spotlightContainer">
                 <section id="spotlight">
                     <div id="spotlightImage1"><img src={stockImage3} alt="Person takes another's hand" /></div>
-                    <div class="spotlightContent">
+                    <div className="spotlightContent">
                         <hr className="hr"/>
                         <h2>Take Advantage of Remote,<br/>Personal Learning</h2>
                         <hr className="hr"/>
@@ -122,7 +124,7 @@ function Home(props) {
                     </div>
                 </section>
                 <section id="spotlightSpecial">
-                    <div class="spotlightContent">
+                    <div className="spotlightContent">
                         <hr className="hr"/>
                         <h2>Gain Valuable Experience<br />from Old Karens</h2>
                         <hr className="hr"/>
@@ -143,7 +145,7 @@ function Home(props) {
                             <hr id="verticalSeparator"/>
                             <div className="formContainer">
                                 <form className="form" onSubmit={handleSubmit}>
-                                    <label for="accountType">Choose Your Account:</label>
+                                    <label htmlFor="accountType">Choose Your Account:</label>
                                     <select onChange={handleRoleChange} id="accountType" name="accountType">
                                         <option value="admin">Admin</option>
                                         <option value="volunteers">Volunteer</option>
@@ -161,7 +163,7 @@ function Home(props) {
                 <div id="modal">
                     <div id="modalHeader">
                         <h1>Sign Up</h1>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" id="close" onClick={closeModal}><path fill="#1E213F" fill-rule="evenodd" d="M11.95.636l1.414 1.414L8.414 7l4.95 4.95-1.414 1.414L7 8.414l-4.95 4.95L.636 11.95 5.586 7 .636 2.05 2.05.636 7 5.586l4.95-4.95z" opacity=".5"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" id="close" onClick={closeModal}><path fill="#1E213F" fillRule="evenodd" d="M11.95.636l1.414 1.414L8.414 7l4.95 4.95-1.414 1.414L7 8.414l-4.95 4.95L.636 11.95 5.586 7 .636 2.05 2.05.636 7 5.586l4.95-4.95z" opacity=".5"/></svg>
                     </div>
                     <hr className="modalHr"/>
                     <div id="modalFormContainer">
@@ -200,7 +202,7 @@ function Home(props) {
                 <div id="modalLogin">
                     <div id="modalHeader">
                         <h1>Log In</h1>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" id="close" onClick={closeModal}><path fill="#1E213F" fill-rule="evenodd" d="M11.95.636l1.414 1.414L8.414 7l4.95 4.95-1.414 1.414L7 8.414l-4.95 4.95L.636 11.95 5.586 7 .636 2.05 2.05.636 7 5.586l4.95-4.95z" opacity=".5"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" id="close" onClick={closeModal}><path fill="#1E213F" fillRule="evenodd" d="M11.95.636l1.414 1.414L8.414 7l4.95 4.95-1.414 1.414L7 8.414l-4.95 4.95L.636 11.95 5.586 7 .636 2.05 2.05.636 7 5.586l4.95-4.95z" opacity=".5"/></svg>
                     </div>
                     <hr className="modalHr"/>
                     <div id="modalFormContainer">
@@ -231,7 +233,7 @@ function Home(props) {
                 <div id="modalVolunteer">
                     <div id="modalHeader">
                         <h1>Sign Up</h1>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" id="close" onClick={closeModal}><path fill="#1E213F" fill-rule="evenodd" d="M11.95.636l1.414 1.414L8.414 7l4.95 4.95-1.414 1.414L7 8.414l-4.95 4.95L.636 11.95 5.586 7 .636 2.05 2.05.636 7 5.586l4.95-4.95z" opacity=".5"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" id="close" onClick={closeModal}><path fill="#1E213F" fillRule="evenodd" d="M11.95.636l1.414 1.414L8.414 7l4.95 4.95-1.414 1.414L7 8.414l-4.95 4.95L.636 11.95 5.586 7 .636 2.05 2.05.636 7 5.586l4.95-4.95z" opacity=".5"/></svg>
                     </div>
                     <hr className="modalHr"/>
                     <div id="modalFormContainer">
@@ -261,9 +263,9 @@ function Home(props) {
                                 />
                             </label>
                             <hr id="volunteerExtraHr"/>
-                            <label for="availability">Choose Your Availability:</label>
-                            <select onChange={handleFormChange} className="inputs" id="availability" name="availability">
-                                <option value="none" selected disabled>--Select Day--</option>
+                            <label htmlFor="availability">Choose Your Availability:</label>
+                            <select onChange={handleFormChange} defaultValue="none"className="inputs" id="availability" name="availability">
+                                <option value="none" disabled>--Select Day--</option>
                                 <option value="Monday">Monday</option>
                                 <option value="Tuesday">Tuesday</option>
                                 <option value="Wednesday">Wednesday</option>
@@ -274,7 +276,7 @@ function Home(props) {
                                 <option value="Weekdays">Weekdays</option>
                                 <option value="Weekends">Weekends</option>
                             </select>
-                            <label for="country_id">Choose Your Country:</label>
+                            <label htmlFor="country_id">Choose Your Country:</label>
                             <select onChange={handleFormChange} id="country" name="country_id" size="5">
                                 <option value="1">Afghanistan</option>
                                 <option value="2">Aland Islands</option>

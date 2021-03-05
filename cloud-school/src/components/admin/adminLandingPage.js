@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axiosWithAuth  from '../../utils/axiosWithAuth';
-import styled from "styled-components";
 import { useApi } from '../../utils/hooks/useApi';
 import { fetchResource, fetchTasks } from '../../utils/api';
 import VolunteerList from './VolunteerList';
@@ -15,12 +14,15 @@ const AdminLandingPage = () => {
     const [ expand, setExpand ] = useState(false);
     const [ fillOutForm, setFillOutForm ] = useState(initialFormValues);
     const [ showTasks, setShowTasks ] = useState(false);
+    // eslint-disable-next-line
     const [ taskList, setTaskList ] = useState(initialFormValues);
     const [ volunteers, setVolunteers ] = useApi(() => fetchResource('volunteers'));
+    // eslint-disable-next-line
     const [ tasks, setTasks ] = useApi(() => fetchTasks(3));
 
     useEffect(() => {
         setVolunteers();
+    // eslint-disable-next-line
     }, [])
 
     console.log(volunteers);
@@ -36,6 +38,7 @@ const AdminLandingPage = () => {
         setFillOutForm(initialFormValues);
     }
 
+    // eslint-disable-next-line
     const expandTask = e => {
         e.preventDefault();
         setShowTasks(true);
