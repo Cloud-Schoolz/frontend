@@ -21,6 +21,7 @@ function StudentLandingPage() {
 
   useEffect(() => {
     setVolunteersResponse();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -28,10 +29,12 @@ function StudentLandingPage() {
       const formattedVolunteers = createFormattedVolunteers();
       setVolunteers(formattedVolunteers);
     }
+    // eslint-disable-next-line
   }, [volunteersResponse]);
 
   useEffect(() => {
     handleFilter()
+    // eslint-disable-next-line
   }, [searchParams]);
   
   const createFormattedVolunteers = () => {

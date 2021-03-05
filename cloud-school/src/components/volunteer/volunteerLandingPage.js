@@ -1,14 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {useParams} from 'react-router-dom';
-import axiosWithAuth from '../../utils/axiosWithAuth';
 import VolunteerTaskPage from './VolunteerTaskPage';
 import { useApi } from '../../utils/hooks/useApi'
 import { fetchTasks, fetchVolunteer } from '../../utils/api';
 import './VolunteerLandingPage.css'
 
 const VolunteerLandingPage = () => {
-
-    const [name, setName] = useState([])
     const {id} = useParams();
     const [volunteerTasks, setVolunteerTasks ] = useApi(()=>fetchTasks(id))
     const [volunteerName, setVolunteerName] = useApi(()=>fetchVolunteer(id))
@@ -17,6 +14,7 @@ const VolunteerLandingPage = () => {
     useEffect(()=>{
         setVolunteerTasks();
         setVolunteerName()
+        // eslint-disable-next-line
     }, [])
     
     // const getName = ()=>{

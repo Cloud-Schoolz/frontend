@@ -15,7 +15,9 @@ function VolunteerList(props) {
     const [ tasks, setTasks ] = useApi(() => fetchTasks(currentVolunteer));
     const [ formTask, setFormTask ] = useState(initialFormState);
     const [ id, setId ] = useState("");
+    // eslint-disable-next-line
     const [ newFormTask, setNewFormTask ] = useApi(() => putTask(formTask, id));
+    // eslint-disable-next-line
     const [ addTask, setAddTask ] = useApi(() => postTask(newTaskObj));
     const history = useHistory();
     const params = useParams();
@@ -111,7 +113,7 @@ function VolunteerList(props) {
     return (
         <div id="volunteersDisplay">
             <form onSubmit={handleSubmit}>
-                <label for="volunteers_id">Volunteers:</label>
+                <label htmlFor="volunteers_id">Volunteers:</label>
                     <select onChange={handleChange} id="volunteers" name="volunteers_id" size="5">
                     {props.volunteers && props.volunteers.map(volunteer => (<option value={volunteer.id}>{volunteer.name}</option>))}
                     </select>
